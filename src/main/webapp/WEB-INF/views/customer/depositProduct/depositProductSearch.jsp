@@ -19,7 +19,7 @@
 </head>
 <body>
 <div class="wrapper">
-		<jsp:include page="/WEB-INF/views/include/headerB.jsp" />
+		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 
 		<!-- 메인 콘텐츠 -->
@@ -94,24 +94,27 @@
 				           <td>${dto.deposit_product_maxDate}개월</td>
 				           <td><fmt:formatNumber value="${dto.deposit_product_minPrice}" type="number"/>원</td>
 				           <td>
-				           		<c:choose>
+				           		<c:choose> 
 				           			<c:when test="${dto.deposit_product_bankCode==0}">
 				           				미기재
 				           			</c:when>
 				           			<c:when test="${dto.deposit_product_bankCode==1}">
-				           				신한은행
-				           			</c:when>
-				           			<c:when test="${dto.deposit_product_bankCode==2}">
 				           				국민은행
 				           			</c:when>
-				           			<c:when test="${dto.deposit_product_bankCode==3}">
+				           			<c:when test="${dto.deposit_product_bankCode==2}">
 				           				우리은행
 				           			</c:when>
+				           			<c:when test="${dto.deposit_product_bankCode==3}">
+				           				농협은행
+				           			</c:when>
 				           			<c:when test="${dto.deposit_product_bankCode==4}">
-				           				기업은행
+				           				신한은행
 				           			</c:when>
 				           			<c:when test="${dto.deposit_product_bankCode==5}">
 				           				하나은행
+				           			</c:when>
+				           			<c:when test="${dto.deposit_product_bankCode==6}">
+				           				코스모 은행
 				           			</c:when>
 				           		</c:choose>
 				           </td>
@@ -172,7 +175,7 @@
 		</div>
 	</div>
 	
-	<jsp:include page="/WEB-INF/views/include/footerB.jsp" />
+	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	
 	<!--   Core JS Files   -->
 	<script src="${rePath}js/core/jquery.3.2.1.min.js"></script>

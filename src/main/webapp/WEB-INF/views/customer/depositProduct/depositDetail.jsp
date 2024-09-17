@@ -22,7 +22,7 @@
 
 	<!-- <div class="wrapper">
 		<div class="main-header"> -->
-		<jsp:include page="/WEB-INF/views/include/headerB.jsp" />
+		<jsp:include page="/WEB-INF/views/include/header.jsp" />
 		<jsp:include page="/WEB-INF/views/include/sidebar.jsp" />
 		<!-- 메인 폼-->
 		<div class="main-panel">
@@ -43,7 +43,7 @@
 			
 				<section id="main">
 			      <div class="main__container">
-					<h2 class="title">예금상품 상세</h2>
+					<h2 class="title">예금 상품 가입하기 </h2>
 					<div class="row">
 						<div class="col">
 							<div class="card">
@@ -51,10 +51,13 @@
 									<div class="card-title">${dto.deposit_product_name}</div>
 								</div>
 								<div class="card-body">
-									 <form action="depositProductAction" name="depositProductForm">
+								 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+									 <form action="depositProductJoin" method="post" name="depositProductForm">
 									 	<sec:csrfInput/>
 								         <input type="hidden" name="pageNum" value="${pageNum}">
 								         <input type="hidden" name="number" value="${number}">
+								         <input type="hidden" name="customerID" value="${sessionScope.customerID}">
+								         <input type="hidden" name="deposit_product_summary" value="${dto.deposit_product_summary}">
 						        <table class="admin__table">
 						          <tr>
 						            <th class="table__head">상품명</th>
@@ -68,7 +71,9 @@
 						          </tr>
 						          <tr>
 						            <th class="table__head">금리</th>
-						              <td>${dto.deposit_product_interRate}%</td>
+						              <td>${dto.deposit_product_interRate}%
+						              <input type="hidden" value ="${dto.deposit_product_interRate}" name ="deposit_product_interRate">
+						              	</td>
 						          </tr>
 						          <tr>
 						          	 <th class="table__head">종류</th>
@@ -80,6 +85,7 @@
 								           <c:if test="${dto.deposit_product_type!=1}">
 								           	단리
 								           </c:if>
+								           <input type="hidden" value="${dto.deposit_product_type }" name="deposit_product_type">
 						          	 </td>
 						           </tr>
 						           <tr>
@@ -94,7 +100,10 @@
 						           
 						           <tr>
 						           		<th class="table__head">최소금액</th>
-						           		<td><fmt:formatNumber value="${dto.deposit_product_minPrice}" type="number"/>원</td>
+						           		<td><fmt:formatNumber value="${dto.deposit_product_minPrice}" type="number"/>원
+						           		 <input type="hidden" value="${dto.deposit_product_minPrice }" name="deposit_product_minPrice">
+						           		</td>
+						           		
 						           </tr>
 						      		
 						      		<tr>
@@ -105,31 +114,39 @@
 							           				미기재
 							           			</c:when>
 							           			<c:when test="${dto.deposit_product_bankCode==1}">
-							           				신한은행
-							           			</c:when>
-							           			<c:when test="${dto.deposit_product_bankCode==2}">
 							           				국민은행
 							           			</c:when>
-							           			<c:when test="${dto.deposit_product_bankCode==3}">
+							           			<c:when test="${dto.deposit_product_bankCode==2}">
 							           				우리은행
 							           			</c:when>
+							           			<c:when test="${dto.deposit_product_bankCode==3}">
+							           				농협은행
+							           			</c:when>
 							           			<c:when test="${dto.deposit_product_bankCode==4}">
-							           				기업은행
+							           				신한은행
 							           			</c:when>
 							           			<c:when test="${dto.deposit_product_bankCode==5}">
-							           				하나은행
+							           				하나은행 
+							           			</c:when>
+							           			<c:when test="${dto.deposit_product_bankCode==6}">
+							           				코스모 뱅크  
 							           			</c:when>
 							           		</c:choose>
+							           		<input type="hidden" value="${dto.deposit_product_bankCode}" name ="deposit_product_bankCode">
 							           </td>
 						      		</tr>
 						      		
+						      		
 						      		<tr>
 						      			 <th class="table__head">등록일</th>
-						      			 <td>${dto.deposit_product_date}</td>
+						      			 <td>${dto.deposit_product_date}
+						      			 	</td>
 						      		</tr>
+						      		
 						        </table>
 						        <div align ="right">
-						          	<input type="submit" class="btn btn-primary btn-border" value="예금상품 신청하기" >
+						          	<input type="submit" class="btn btn-primary btn-border" value="예금상품 신청하러 가기 ">
+						          	<input type="button" class="btn btn-primary btn-border" onclick="window.history.back()" value="돌아가기">
 						        </div>
 			        </form>
 								</div>
@@ -186,100 +203,5 @@
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
 	<script src="${rePath}js/setting-demo.js"></script>
 	<script src="${rePath}js/demo.js"></script>
-	<script>
-		Circles.create({
-			id : 'circles-1',
-			radius : 45,
-			value : 60,
-			maxValue : 100,
-			width : 7,
-			text : 5,
-			colors : [ '#f1f1f1', '#FF9E27' ],
-			duration : 400,
-			wrpClass : 'circles-wrp',
-			textClass : 'circles-text',
-			styleWrapper : true,
-			styleText : true
-		})
-
-		Circles.create({
-			id : 'circles-2',
-			radius : 45,
-			value : 70,
-			maxValue : 100,
-			width : 7,
-			text : 36,
-			colors : [ '#f1f1f1', '#2BB930' ],
-			duration : 400,
-			wrpClass : 'circles-wrp',
-			textClass : 'circles-text',
-			styleWrapper : true,
-			styleText : true
-		})
-
-		Circles.create({
-			id : 'circles-3',
-			radius : 45,
-			value : 40,
-			maxValue : 100,
-			width : 7,
-			text : 12,
-			colors : [ '#f1f1f1', '#F25961' ],
-			duration : 400,
-			wrpClass : 'circles-wrp',
-			textClass : 'circles-text',
-			styleWrapper : true,
-			styleText : true
-		})
-
-		var totalIncomeChart = document.getElementById('totalIncomeChart')
-				.getContext('2d');
-
-		var mytotalIncomeChart = new Chart(totalIncomeChart, {
-			type : 'bar',
-			data : {
-				labels : [ "S", "M", "T", "W", "T", "F", "S", "S", "M", "T" ],
-				datasets : [ {
-					label : "Total Income",
-					backgroundColor : '#ff9e27',
-					borderColor : 'rgb(23, 125, 255)',
-					data : [ 6, 4, 9, 5, 4, 6, 4, 3, 8, 10 ],
-				} ],
-			},
-			options : {
-				responsive : true,
-				maintainAspectRatio : false,
-				legend : {
-					display : false,
-				},
-				scales : {
-					yAxes : [ {
-						ticks : {
-							display : false
-						//this will remove only the label
-						},
-						gridLines : {
-							drawBorder : false,
-							display : false
-						}
-					} ],
-					xAxes : [ {
-						gridLines : {
-							drawBorder : false,
-							display : false
-						}
-					} ]
-				},
-			}
-		});
-
-		$('#lineChart').sparkline([ 105, 103, 123, 100, 95, 105, 115 ], {
-			type : 'line',
-			height : '70',
-			width : '100%',
-			lineWidth : '2',
-			lineColor : '#ffa534',
-			fillColor : 'rgba(255, 165, 52, .14)'
-		});
-	</script>
+	
 </html>
